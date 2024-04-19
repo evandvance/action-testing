@@ -1,0 +1,17 @@
+name: Auto Upsert Challenges
+run-name: Auto Upserting Challenges...
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  upsert_production_challenges:
+    name: Upsert Production Challenges
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Upsert
+        run: psql --dbname=postgresql://postgres:password@localhost:5432/postgres -f ./test.sql
